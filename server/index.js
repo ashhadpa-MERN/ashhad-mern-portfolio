@@ -29,7 +29,7 @@ const limiter = rateLimit({
 // Middleware
 app.use(helmet())
 app.use(cors({
-  origin: process.env.CLIENT_URL || 'http://localhost:3000',
+  origin: process.env.CLIENT_URL || process.env.VERCEL_URL || 'http://localhost:3000',
   credentials: true
 }))
 app.use(limiter)
@@ -112,7 +112,13 @@ process.on('SIGINT', () => {
   process.exit(0)
 })
 
-app.listen(PORT, () => {
-  console.log(`🚀 Server running on port ${PORT}`)
-  console.log(`📊 Environment: ${process.env.NODE_ENV || 'development'}`)
-})
+// Only listen on port if not in Vercel serverless environment
+if (process.env.VERCEL !== '1') {
+  app.listen(PORT, () => {
+    console.log(`🚀 Server running on port ${PORT}`)
+    console.log(`📊 Environment: ${process.env.NODE_ENV || 'development'}`)
+  })
+}
+
+// Export for Vercel serverless
+export default app
