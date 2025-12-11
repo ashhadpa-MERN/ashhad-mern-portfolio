@@ -10,7 +10,8 @@
     "build": "cd client && npm run build",
     "build:vercel": "npm install && cd client && npm install && npm run build",
     "start": "cd server && npm start",
-    "install-all": "npm install && cd client && npm install && cd ../server && npm install"
+    "install-all": "npm install && cd client && npm install && cd ../server && npm install",
+    "vercel-build": "cd client && npm install && npm run build"
   },
   "keywords": ["portfolio", "mern", "react", "nodejs", "mongodb"],
   "author": "Ash Had P A",
